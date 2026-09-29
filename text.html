@@ -1,0 +1,484 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="给网页新手的入门技巧：从规划、结构、样式到发布的实用建议。">
+  <title>新手建网页实用技巧</title>
+  <style>
+    :root {
+      --ink: #172033;
+      --muted: #667085;
+      --paper: #fffdf8;
+      --line: #e7e5df;
+      --primary: #4255d4;
+      --primary-dark: #293aab;
+      --accent: #f3b562;
+      --soft-blue: #eef1ff;
+      --soft-yellow: #fff5df;
+      --shadow: 0 16px 45px rgba(34, 42, 74, 0.1);
+    }
+
+    * {
+      box-sizing: border-box;
+    }
+
+    html {
+      scroll-behavior: smooth;
+    }
+
+    body {
+      margin: 0;
+      color: var(--ink);
+      background:
+        radial-gradient(circle at 85% 8%, #e4e9ff 0, transparent 24rem),
+        linear-gradient(180deg, #f7f8ff 0, var(--paper) 35rem);
+      font-family: "Microsoft YaHei", "PingFang SC", Arial, sans-serif;
+      line-height: 1.7;
+    }
+
+    a {
+      color: inherit;
+    }
+
+    .container {
+      width: min(1120px, calc(100% - 40px));
+      margin: 0 auto;
+    }
+
+    header {
+      padding: 28px 0 80px;
+    }
+
+    nav {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 24px;
+    }
+
+    .brand {
+      display: inline-flex;
+      align-items: center;
+      gap: 10px;
+      color: var(--primary-dark);
+      font-weight: 800;
+      text-decoration: none;
+      letter-spacing: 0.04em;
+    }
+
+    .brand-mark {
+      display: grid;
+      width: 36px;
+      height: 36px;
+      place-items: center;
+      border-radius: 11px;
+      color: white;
+      background: var(--primary);
+      box-shadow: 0 7px 16px rgba(66, 85, 212, 0.25);
+    }
+
+    nav ul {
+      display: flex;
+      gap: 28px;
+      margin: 0;
+      padding: 0;
+      list-style: none;
+      color: var(--muted);
+      font-size: 0.94rem;
+    }
+
+    nav a {
+      text-decoration: none;
+    }
+
+    nav a:hover,
+    nav a:focus-visible {
+      color: var(--primary);
+    }
+
+    .hero {
+      display: grid;
+      grid-template-columns: 1.05fr 0.95fr;
+      align-items: center;
+      gap: 64px;
+      padding-top: 78px;
+    }
+
+    .eyebrow {
+      display: inline-block;
+      margin: 0 0 14px;
+      color: var(--primary);
+      font-size: 0.85rem;
+      font-weight: 800;
+      letter-spacing: 0.12em;
+    }
+
+    h1,
+    h2,
+    h3,
+    p {
+      margin-top: 0;
+    }
+
+    h1 {
+      max-width: 620px;
+      margin-bottom: 22px;
+      font-size: clamp(2.5rem, 6vw, 4.7rem);
+      line-height: 1.12;
+      letter-spacing: -0.05em;
+    }
+
+    .hero-copy {
+      max-width: 590px;
+      color: var(--muted);
+      font-size: 1.1rem;
+    }
+
+    .button {
+      display: inline-block;
+      margin-top: 18px;
+      padding: 12px 21px;
+      border-radius: 12px;
+      color: white;
+      background: var(--primary);
+      box-shadow: 0 9px 18px rgba(66, 85, 212, 0.2);
+      font-weight: 700;
+      text-decoration: none;
+      transition: transform 0.2s, background 0.2s;
+    }
+
+    .button:hover,
+    .button:focus-visible {
+      background: var(--primary-dark);
+      transform: translateY(-2px);
+    }
+
+    .code-card {
+      position: relative;
+      padding: 28px;
+      overflow: hidden;
+      border: 1px solid rgba(66, 85, 212, 0.13);
+      border-radius: 24px;
+      background: #202844;
+      box-shadow: var(--shadow);
+      color: #edf1ff;
+    }
+
+    .code-card::after {
+      position: absolute;
+      right: -50px;
+      bottom: -70px;
+      width: 180px;
+      height: 180px;
+      border: 28px solid rgba(243, 181, 98, 0.18);
+      border-radius: 50%;
+      content: "";
+    }
+
+    .dots {
+      display: flex;
+      gap: 7px;
+      margin-bottom: 26px;
+    }
+
+    .dots span {
+      width: 10px;
+      height: 10px;
+      border-radius: 50%;
+      background: #fa8d8d;
+    }
+
+    .dots span:nth-child(2) {
+      background: var(--accent);
+    }
+
+    .dots span:nth-child(3) {
+      background: #76d6a5;
+    }
+
+    pre {
+      margin: 0;
+      overflow-x: auto;
+      color: #d9e0ff;
+      font: 0.95rem/1.8 Consolas, "Courier New", monospace;
+    }
+
+    .tag {
+      color: #8ed1ff;
+    }
+
+    .attr {
+      color: #ffcf91;
+    }
+
+    .value {
+      color: #a9e7bc;
+    }
+
+    section {
+      padding: 74px 0;
+    }
+
+    .section-heading {
+      max-width: 620px;
+      margin-bottom: 32px;
+    }
+
+    h2 {
+      margin-bottom: 9px;
+      font-size: clamp(1.9rem, 4vw, 2.7rem);
+      line-height: 1.2;
+      letter-spacing: -0.03em;
+    }
+
+    .section-heading p {
+      margin-bottom: 0;
+      color: var(--muted);
+    }
+
+    .tips {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 18px;
+    }
+
+    .tip {
+      padding: 26px;
+      border: 1px solid var(--line);
+      border-radius: 18px;
+      background: rgba(255, 255, 255, 0.72);
+      box-shadow: 0 8px 25px rgba(44, 50, 74, 0.04);
+    }
+
+    .tip-number {
+      display: inline-grid;
+      width: 34px;
+      height: 34px;
+      margin-bottom: 20px;
+      place-items: center;
+      border-radius: 10px;
+      color: var(--primary-dark);
+      background: var(--soft-blue);
+      font-weight: 800;
+    }
+
+    .tip:nth-child(even) .tip-number {
+      color: #9b671e;
+      background: var(--soft-yellow);
+    }
+
+    .tip h3 {
+      margin-bottom: 8px;
+      font-size: 1.16rem;
+    }
+
+    .tip p {
+      margin-bottom: 0;
+      color: var(--muted);
+      font-size: 0.95rem;
+    }
+
+    .checklist-wrap {
+      display: grid;
+      grid-template-columns: 0.8fr 1.2fr;
+      gap: 46px;
+      align-items: start;
+      padding: 42px;
+      border-radius: 24px;
+      background: var(--soft-blue);
+    }
+
+    .checklist-wrap h2 {
+      margin-bottom: 14px;
+    }
+
+    .checklist-wrap p {
+      margin-bottom: 0;
+      color: var(--muted);
+    }
+
+    .checklist {
+      display: grid;
+      gap: 13px;
+      margin: 0;
+      padding: 0;
+      list-style: none;
+    }
+
+    .checklist li {
+      position: relative;
+      padding: 14px 18px 14px 48px;
+      border-radius: 13px;
+      background: white;
+      box-shadow: 0 5px 13px rgba(42, 56, 126, 0.05);
+    }
+
+    .checklist li::before {
+      position: absolute;
+      top: 14px;
+      left: 18px;
+      color: #43a477;
+      content: "✓";
+      font-weight: 900;
+    }
+
+    footer {
+      padding: 28px 0 42px;
+      border-top: 1px solid var(--line);
+      color: var(--muted);
+      font-size: 0.9rem;
+    }
+
+    @media (max-width: 800px) {
+      .hero,
+      .checklist-wrap {
+        grid-template-columns: 1fr;
+        gap: 32px;
+      }
+
+      .tips {
+        grid-template-columns: repeat(2, 1fr);
+      }
+    }
+
+    @media (max-width: 560px) {
+      .container {
+        width: min(100% - 28px, 1120px);
+      }
+
+      header {
+        padding-bottom: 40px;
+      }
+
+      nav ul {
+        display: none;
+      }
+
+      .hero {
+        padding-top: 55px;
+      }
+
+      section {
+        padding: 48px 0;
+      }
+
+      .tips {
+        grid-template-columns: 1fr;
+      }
+
+      .checklist-wrap {
+        padding: 26px 20px;
+      }
+    }
+  </style>
+</head>
+<body>
+  <header id="top">
+    <div class="container">
+      <nav aria-label="主导航">
+        <a class="brand" href="#top">
+          <span class="brand-mark">&lt;/&gt;</span>
+          网页起步课
+        </a>
+        <ul>
+          <li><a href="#tips">实用技巧</a></li>
+          <li><a href="#checklist">发布前检查</a></li>
+        </ul>
+      </nav>
+
+      <div class="hero">
+        <div>
+          <p class="eyebrow">BEGINNER'S WEB GUIDE</p>
+          <h1>从零开始，做出你的第一个网页。</h1>
+          <p class="hero-copy">
+            不需要一开始就掌握所有知识。先学会规划内容、写好结构、逐步美化页面，再用小步迭代把想法变成真正能打开的网页。
+          </p>
+          <a class="button" href="#tips">开始阅读技巧</a>
+        </div>
+
+        <div class="code-card" aria-label="网页基础代码示例">
+          <div class="dots"><span></span><span></span><span></span></div>
+          <pre><code><span class="tag">&lt;!DOCTYPE html&gt;</span>
+<span class="tag">&lt;html</span> <span class="attr">lang</span>=<span class="value">"zh-CN"</span><span class="tag">&gt;</span>
+  <span class="tag">&lt;body&gt;</span>
+    <span class="tag">&lt;h1&gt;</span>你好，网页！<span class="tag">&lt;/h1&gt;</span>
+    <span class="tag">&lt;p&gt;</span>今天也进步一点点。<span class="tag">&lt;/p&gt;</span>
+  <span class="tag">&lt;/body&gt;</span>
+<span class="tag">&lt;/html&gt;</span></code></pre>
+        </div>
+      </div>
+    </div>
+  </header>
+
+  <main>
+    <section id="tips">
+      <div class="container">
+        <div class="section-heading">
+          <p class="eyebrow">6 个入门建议</p>
+          <h2>把复杂的网页制作，拆成简单的小步骤。</h2>
+          <p>先追求清晰和完成，再追求复杂和漂亮。每一次练习都可以成为下一次的基础。</p>
+        </div>
+
+        <div class="tips">
+          <article class="tip">
+            <span class="tip-number">01</span>
+            <h3>先画草图再写代码</h3>
+            <p>先确定标题、图片、按钮和内容的顺序。哪怕只是纸上几个方框，也能避免写到一半反复修改布局。</p>
+          </article>
+          <article class="tip">
+            <span class="tip-number">02</span>
+            <h3>先学好 HTML 结构</h3>
+            <p>用 h1、h2、p、ul 等标签表达内容含义。结构清楚，搜索引擎和使用辅助工具的人都更容易理解页面。</p>
+          </article>
+          <article class="tip">
+            <span class="tip-number">03</span>
+            <h3>用 CSS 统一样式</h3>
+            <p>把颜色、间距、字体等规则交给 CSS，不要到处复制样式。使用变量还能让全站换主题变得更容易。</p>
+          </article>
+          <article class="tip">
+            <span class="tip-number">04</span>
+            <h3>从手机尺寸开始检查</h3>
+            <p>很多人用手机浏览网页。使用响应式布局，并在窄屏上测试文字、图片和按钮是否会溢出。</p>
+          </article>
+          <article class="tip">
+            <span class="tip-number">05</span>
+            <h3>图片要压缩和说明</h3>
+            <p>大图片会拖慢加载速度。选择合适的尺寸和格式，并为有意义的图片添加 alt 描述。</p>
+          </article>
+          <article class="tip">
+            <span class="tip-number">06</span>
+            <h3>经常保存并小步测试</h3>
+            <p>每完成一个小功能就刷新浏览器检查。发现问题时，先看控制台和开发者工具，再逐项排查。</p>
+          </article>
+        </div>
+      </div>
+    </section>
+
+    <section id="checklist">
+      <div class="container">
+        <div class="checklist-wrap">
+          <div>
+            <p class="eyebrow">发布前检查</p>
+            <h2>让网页更可靠的最后一步。</h2>
+            <p>发布前花几分钟检查这些细节，能减少很多访问者遇到的问题。</p>
+          </div>
+          <ul class="checklist">
+            <li>页面标题能准确说明内容</li>
+            <li>手机和电脑上都能正常阅读</li>
+            <li>按钮和链接都可以点击</li>
+            <li>图片有合适的替代文字</li>
+            <li>没有打开开发者工具后仍存在的报错</li>
+          </ul>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <footer>
+    <div class="container">
+      <span>网页起步课 · 从一个 HTML 文件开始练习</span>
+    </div>
+  </footer>
+</body>
+</html>
